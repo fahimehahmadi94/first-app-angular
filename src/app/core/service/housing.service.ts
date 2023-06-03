@@ -1,0 +1,139 @@
+import { Injectable } from '@angular/core';
+import { HousingLocation as HousingLocation } from '../interface/housinglocation.interface';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HousingService {
+  url = 'http://localhost:3004/locations';
+  // housingLocationList: HousingLocation[] = [
+  //   {
+  //     id: 0,
+  //     name: 'Acme Fresh Start Housing',
+  //     city: 'Chicago',
+  //     state: 'IL',
+  //     photo: 'https://image.cnbcfm.com/api/v1/image/106758801-1603459526384-picture-perfect-beautiful-house-on-the-island-of-coronado-in-sunny-california-beautifully-landscaped_t20_6lJOrv.jpg?v=1603459593&w=1600&h=900',
+  //     availableUnits: 4,
+  //     wifi: true,
+  //     laundry: true
+  //   },
+  //   {
+  //     id: 1,
+  //     name: 'A113 Transitional Housing',
+  //     city: 'Santa Monica',
+  //     state: 'CA',
+  //     photo: 'https://photos.zillowstatic.com/fp/b7a33a665d62b33f473c9cf034083f06-cc_ft_960.webp',
+  //     availableUnits: 0,
+  //     wifi: false,
+  //     laundry: true
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Warm Beds Housing Support',
+  //     city: 'Juneau',
+  //     state: 'AK',
+  //     photo: 'https://cdn.houseplansservices.com/content/f3oo5es0q168o22dudkh98tskp/w991x660.jpg?v=2',
+  //     availableUnits: 1,
+  //     wifi: false,
+  //     laundry: false
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Homesteady Housing',
+  //     city: 'Chicago',
+  //     state: 'IL',
+  //     photo: 'https://cdn.houseplansservices.com/product/2q27pacurcvq9fh82soor7gh6i/w1024.jpg?v=20',
+  //     availableUnits: 1,
+  //     wifi: true,
+  //     laundry: false
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'Happy Homes Group',
+  //     city: 'Gary',
+  //     state: 'IN',
+  //     photo: 'https://cdn.houseplansservices.com/product/p1gal0bnoea14vrtlmv0ei30cb/w1024.jpg?v=20',
+  //     availableUnits: 1,
+  //     wifi: true,
+  //     laundry: false
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'Hopeful Apartment Group',
+  //     city: 'Oakland',
+  //     state: 'CA',
+  //     photo: 'https://cdn.houseplansservices.com/product/aqkb43r88p2qr4o3n43dc8no2b/w1024.jpg?v=20',
+  //     availableUnits: 2,
+  //     wifi: true,
+  //     laundry: true
+  //   },
+  //   {
+  //     id: 6,
+  //     name: 'Seriously Safe Towns',
+  //     city: 'Oakland',
+  //     state: 'CA',
+  //     photo: 'https://cdn.houseplansservices.com/product/b85k4sgin6hfvkh024mg7b9kal/w1024.jpg?v=20',
+  //     availableUnits: 5,
+  //     wifi: true,
+  //     laundry: true
+  //   },
+  //   {
+  //     id: 7,
+  //     name: 'Hopeful Housing Solutions',
+  //     city: 'Oakland',
+  //     state: 'CA',
+  //     photo: 'https://cdn.houseplansservices.com/product/anp0jnouo1dq3iohiutoid1qoi/w1024.JPG?v=18',
+  //     availableUnits: 2,
+  //     wifi: true,
+  //     laundry: true
+  //   },
+  //   {
+  //     id: 8,
+  //     name: 'Seriously Safe Towns',
+  //     city: 'Oakland',
+  //     state: 'CA',
+  //     photo: 'https://cdn.houseplansservices.com/product/spovd6kkqs1815lbt9u1c44672/w1024.jpg?v=20',
+  //     availableUnits: 10,
+  //     wifi: false,
+  //     laundry: false
+  //   },
+  //   {
+  //     id: 9,
+  //     name: 'Capital Safe Towns',
+  //     city: 'Portland',
+  //     state: 'OR',
+  //     photo: 'https://cdn.houseplansservices.com/product/lj8e8dcq3g9all6d1kag4gku5e/w1024.JPG?v=11',
+  //     availableUnits: 6,
+  //     wifi: true,
+  //     laundry: true
+  //   }
+  // ];
+
+  constructor() { }
+  // before DB.JSON
+  // getAllHousingLocations(): HousingLocation[] {
+  //   return this.housingLocationList;
+  // }
+  // getHousingLocationById(id: number): HousingLocation | undefined {
+  //   return this.housingLocationList.find(housingLocation => housingLocation.id === id);
+  // }
+  // submitApplication(firstName: string, lastName: string, email: string) {
+  //   console.log(`Homes application received: firstName: ${firstName}, lastName: ${lastName}, email: ${email}.`);
+  // }
+
+
+  // then npm install -g json-server //
+  // after run json-server --watch db.json //
+  async getAllHousingLocations(): Promise<HousingLocation[]> {
+    const data = await fetch(this.url);
+    return await data.json() ?? [];
+  }
+  async getHousingLocationById(id: number): Promise<HousingLocation | undefined> {
+    const data = await fetch(`${this.url}/${id}`);
+    return await data.json() ?? {}
+  }
+  submitApplication(firstName: string, lastName: string, email: string) {
+    console.log(`Homes application received: firstName: ${firstName}, lastName: ${lastName}, email: ${email}.`);
+  }
+
+}
